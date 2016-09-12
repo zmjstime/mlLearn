@@ -1,0 +1,10 @@
+问题:
+
+Package Control：There are no packages available for installation
+
+解决:
+
+C:\Windows\system32\drivers\etc\hosts
+
+在hosts文件添加
+50.116.34.243 sublime.wbond.net
