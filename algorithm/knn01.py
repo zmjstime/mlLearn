@@ -19,6 +19,7 @@ print kdt.query(x, k=2, return_distance=False)
 
 y = np.array([1, 5, 1, 2, -1, 1])
 clf = NearestCentroid()
+print x
 clf.fit(x, y)
 
 print clf.predict([[1, 1]])
