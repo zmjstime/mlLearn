@@ -1,7 +1,6 @@
 from sklearn import svm
 from sklearn import datasets
 import pickle
-from sklearn.externals import joblib
 
 
 clf = svm.SVC()

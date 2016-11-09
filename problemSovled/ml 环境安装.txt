@@ -1,0 +1,6 @@
+升级pip到最新
+1. pip install numpy
+2. pip install scipy 
+	若出错 安装预编译版 scipy-0.18.0-cp27-cp27m-win32.whl， 预编译版依赖numpy-1.11.1+mkl-cp27-cp27m-win32.whl
+3. pip install matplotlib
+4. pip install scikit-learn
