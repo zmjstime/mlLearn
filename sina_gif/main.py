@@ -1,39 +1,60 @@
+# encoding:utf-8
 # from urllib2 import urlopen
 from urllib import urlretrieve
 from bs4 import BeautifulSoup
 from selenium import webdriver
 import time
+import socket
+
+socket.setdefaulttimeout(10)
 
 
 # ht = urlopen('http://gif.sina.com.cn/')
 # print ht.read()
 
 
-url = 'http://gif.sina.com.cn/#page='
+# def cbk(a, b, c):
+#     '''回调函数
+#     @a: 已经下载的数据块
+#     @b: 数据块的大小
+#     @c: 远程文件的大小
+#     '''
+#     per = 100.0 * a * b / c
+#     if per > 100:
+#         per = 100
+#     print '%.2f%%' % per
 
-for index in xrange(100, 300):
-    driver = webdriver.PhantomJS()
+
+url = 'http://gif.sina.com.cn/#page='
+driver = webdriver.PhantomJS()
+
+print time.localtime()
+for index in xrange(1, 300):
     driver.get(url + str(index))
-    time.sleep(2)
+    driver.refresh()
+    time.sleep(1)
     htobject = BeautifulSoup(driver.page_source, 'lxml')
     feedBox = htobject.find_all('div', {'class': 'gif_feed_box'})
     for x in feedBox:
         print x.a.get('href'), x.a.string
-        try:
-        	urlretrieve(x.a.get('href'), x.a.string + '.gif')
-        except Exception as e:
-	        print 'download failed...'
+        # try:
+        #     urlretrieve(x.a.get('href'), 'd:/sinagif2/' + x.a.string + '.gif')
+        # except Exception as e:
+        #     print 'download failed...'
     print 'page:', index, 'downloaded', url + str(index)
-    driver.close()
-
+driver.quit()
 
 # driver = webdriver.PhantomJS()
-# driver.get(url)
-# time.sleep(2)
-# htobject = BeautifulSoup(driver.page_source, 'lxml')
-# feedBox = htobject.find_all('div', {'class': 'gif_feed_box'})
-# for x in feedBox:
-#     print x.a.get('href'), x.a.string
-#     urlretrieve(x.a.get('href'), x.a.string + '.gif')
-# print 'page:', 'downloaded', url
-# driver.close()
+# ll = ['http://gif.sina.com.cn/#page=1',
+#       'http://gif.sina.com.cn/#page=2']
+# for x in ll:
+#     print 'begin:'
+#     driver.get(x)
+#     driver.refresh()
+#     htobject = BeautifulSoup(driver.page_source, 'lxml')
+#     feedBox = htobject.find_all('div', {'class': 'gif_feed_box'})
+#     for y in feedBox:
+#         print y.a.get('href'), y.a.string, x
+#     print 'end'
+#     driver.delete_all_cookies()
+# driver.quit()
