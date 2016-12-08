@@ -1,8 +1,9 @@
 # encoding:utf-8
-from urllib import urlopen
+import urllib2
 from bs4 import BeautifulSoup
 from selenium import webdriver
 import sys
+# from urlGet import getTagUrlDict
 
 reload(sys)
 sys.setdefaultencoding('utf-8')
@@ -28,7 +29,7 @@ def getTagUrlDict(url):
 
 def getPageInfo(url):
     pageInfo = {}
-    htmlText = urlopen(url).read()
+    htmlText = urllib2.urlopen(url).read()
     soupObject = BeautifulSoup(htmlText, 'lxml')
     subjectLists = soupObject.find_all('li', {'class': 'subject-item'})
     for subjectList in subjectLists:
@@ -50,20 +51,23 @@ def getPageInfo(url):
     if span is None:
         print 'this is the last page!'
         return pageInfo, None
-    return pageInfo,'https://book.douban.com'+span.a.get('href').encode('utf-8')
+    return pageInfo, 'https://book.douban.com' + span.a.get('href').encode('utf-8')
 
 
 def getTagInfo(tagDict):
     for tag in tagDict:
         for url in tagDict[tag]:
             pageInfo, url = getPageInfo(url.encode('utf-8'))
-            print url
+            while url:
+                pageInfo, url = getPageInfo(url.encode('utf-8'))
+                print url
 
 
 if __name__ == '__main__':
-    tagDict = getTagUrlDict('https://book.douban.com/tag/?icn=index-nav')
-    # getPageInfo('https://book.douban.com/tag/小说')
-    getTagInfo(tagDict)
+    # tagDict = getTagUrlDict('https://book.douban.com/tag/?icn=index-nav')
+    # tagDict = getTagUrlDict('https://book.douban.com')
+    getPageInfo('https://book.douban.com/tag/小说')
+    # getTagInfo(tagDict)
 
 # urlObject = webdriver.PhantomJS()
 # urlObject.get('https://book.douban.com/tag/小说')
