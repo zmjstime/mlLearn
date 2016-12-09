@@ -1,5 +1,6 @@
 # coding:utf-8
-import json
+# import json
+import MySQLdb
 import sys
 reload(sys)
 sys.setdefaultencoding("utf-8")
@@ -9,12 +10,26 @@ class SomePipeline(object):
 
     def __init__(self):
         self.file = open('item.jl', 'ab')
+        self.db = MySQLdb.connect('localhost', 'root', '', 'test')
 
     def process_item(self, item, spider):
-        line = json.dumps(dict(item), sort_keys=True,
-                          indent=4, ensure_ascii=False) + '\n'
-        self.file.write(line)
+        for x in item.get('imgInfo'):
+            print x
+            sql = '''insert into imgDB values("%s", "%s")''' % (
+                x.get('title').encode('utf8'), x.get('imgUrl').encode('utf8'))
+            cursor = self.db.cursor()
+
+            try:
+                cursor.execute(sql.decode('utf8').encode('utf8'))
+                self.db.commit()
+            except:
+                self.db.rollback()
+            self.file.write(sql)
+
+        # line = json.dumps(dict(item), sort_keys=True,
+        #                   indent=4, ensure_ascii=False) + '\n'
         return item
 
     def close_spider(self, spider):
         self.file.close()
+        self.db.close()

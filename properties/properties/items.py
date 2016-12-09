@@ -10,5 +10,4 @@ from scrapy.item import Field, Item
 
 class PropertiesItem(Item):
     # define the fields for your item here like:
-    title = Field()
-    imgUrl = Field()
+    imgInfo = Field()
