@@ -11,7 +11,7 @@ cursor = db.cursor()
 # ss = '''insert into imgDB values("我的天，战斗民族的带娃日常 厉害了我的", "Http://Storage.Slide.News.Sina.Com.Cn/Slidenews/77_Ori/2016_49/74766_740440_595168.Gif")'''
 # cursor.execute(ss.encode('utf-8'))
 
-cursor.execute('select * from imgDB')
+cursor.execute('select * from environment')
 
 data = cursor.fetchall()
 
@@ -21,6 +21,6 @@ print len(data), type(data)
 # print data
 print 'all:'
 for x in data:
-    print x[0].encode('utf-8'), x[1].encode('utf-8')
+    print x[0], x[1], x[2], x[3], x[4]
 
 db.close()

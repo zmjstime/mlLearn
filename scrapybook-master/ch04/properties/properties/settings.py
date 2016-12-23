@@ -15,7 +15,7 @@ NEWSPIDER_MODULE = 'properties.spiders'
 # the user-agent
 #USER_AGENT = 'properties (+http://www.yourdomain.com)'
 
-ITEM_PIPELINES = {'scrapyapperyio.ApperyIoPipeline': 300}
+# ITEM_PIPELINES = {'scrapyapperyio.ApperyIoPipeline': 300}
 
 APPERYIO_DB_ID = '1234abcdef1234abcdef1234'
 APPERYIO_USERNAME = 'root'

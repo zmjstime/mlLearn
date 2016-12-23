@@ -15,12 +15,12 @@ class SomePipeline(object):
     def process_item(self, item, spider):
         for x in item.get('imgInfo'):
             print x
-            sql = '''insert into imgDB values("%s", "%s")''' % (
-                x.get('title').encode('utf8'), x.get('imgUrl').encode('utf8'))
+            sql = '''insert into imgDB values("%s","%s")''' % (
+                x.get('title').encode('utf-8'), x.get('imgUrl').encode('utf-8'))
             cursor = self.db.cursor()
 
             try:
-                cursor.execute(sql.decode('utf8').encode('utf8'))
+                cursor.execute(sql.encode('utf-8'))
                 self.db.commit()
             except:
                 self.db.rollback()

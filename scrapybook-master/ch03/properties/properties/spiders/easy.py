@@ -7,6 +7,8 @@ from scrapy.linkextractors import LinkExtractor
 from scrapy.spiders import CrawlSpider, Rule
 from scrapy.loader import ItemLoader
 
+import sys
+sys.path.insert(0, '../../')
 from properties.items import PropertiesItem
 
 
